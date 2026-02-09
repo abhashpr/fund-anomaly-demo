@@ -77,9 +77,30 @@ async def websocket_fund_stream(websocket: WebSocket, scheme_code: str):
 
 @app.on_event("startup")
 async def startup_event():
-    """Initialize application on startup."""
+    """Initialize application on startup - EAGER LOAD for fast API responses."""
     print("🚀 Fund Anomaly API starting up...")
-    print("📊 Data will be loaded on first request (lazy loading for fast startup)")
+    print("📊 Pre-loading NAV data (this may take a moment)...")
+    
+    # Pre-load data at startup so API calls are instant
+    from .data_loader import get_processed_data, get_overview, get_fund_list
+    from .anomaly import detect_anomalies
+    
+    try:
+        # Load and process data ONCE at startup
+        df = get_processed_data()
+        df = detect_anomalies(df)
+        
+        # Pre-compute overview stats
+        overview = get_overview()
+        
+        # Pre-compute fund list
+        funds = get_fund_list()
+        
+        print(f"✅ Loaded {len(df):,} NAV records for {df['scheme_code'].nunique()} funds")
+        print(f"✅ Overview cached: {overview['total_funds']} funds, {overview['funds_in_anomaly']} anomalies")
+    except Exception as e:
+        print(f"⚠️ Warning: Could not preload data: {e}")
+    
     print("🎯 API ready at http://localhost:8000")
     print("📖 Docs available at http://localhost:8000/docs")
 
