@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light mode CSS variables */
+html.light {
+  --terminal-bg: #f8fafc;
+  --terminal-surface: #ffffff;
+  --terminal-card: #ffffff;
+  --terminal-border: #e2e8f0;
+  --terminal-hover: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+}
+
+/* Apply light mode overrides */
+html.light .bg-terminal-bg { background-color: var(--terminal-bg) !important; }
+html.light .bg-terminal-surface { background-color: var(--terminal-surface) !important; }
+html.light .bg-terminal-card { background-color: var(--terminal-card) !important; }
+html.light .bg-terminal-hover { background-color: var(--terminal-hover) !important; }
+html.light .border-terminal-border { border-color: var(--terminal-border) !important; }
+html.light .text-text-primary { color: var(--text-primary) !important; }
+html.light .text-text-secondary { color: var(--text-secondary) !important; }
+html.light .text-text-muted { color: var(--text-muted) !important; }
+
+/* Card styling in light mode */
+html.light .card {
+  background-color: var(--terminal-card) !important;
+  border-color: var(--terminal-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styles in light mode */
+html.light .data-table th {
+  border-color: var(--terminal-border) !important;
+  color: var(--text-secondary) !important;
+}
+
+html.light .data-table td {
+  border-color: var(--terminal-border) !important;
+}
+
+html.light .data-table tr:hover {
+  background-color: var(--terminal-hover) !important;
+}
+
+/* Custom component classes */
+@layer components {
+  /* Card styles */
+  .card {
+    @apply bg-terminal-card border border-terminal-border rounded-lg p-4;
+  }
+
+  .card-header {
+    @apply text-sm font-medium text-text-secondary uppercase tracking-wider mb-3;
+  }
+
+  /* Status badges */
+  .badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-accent-green/20 text-accent-green;
+  }
+
+  .badge-danger {
+    @apply bg-accent-red/20 text-accent-red;
+  }
+
+  .badge-warning {
+    @apply bg-accent-yellow/20 text-accent-yellow;
+  }
+
+  .badge-info {
+    @apply bg-accent-blue/20 text-accent-blue;
+  }
+
+  /* Stat cards */
+  .stat-value {
+    @apply text-2xl font-bold font-mono;
+  }
+
+  .stat-label {
+    @apply text-xs text-text-secondary uppercase tracking-wide;
+  }
+
+  /* Table styles */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table th {
+    @apply text-left text-text-secondary font-medium uppercase text-xs tracking-wide py-2 px-3 border-b border-terminal-border;
+  }
+
+  .data-table td {
+    @apply py-3 px-3 border-b border-terminal-border/50;
+  }
+
+  .data-table tr {
+    @apply hover:bg-terminal-hover transition-colors cursor-pointer;
+  }
+
+  /* Animations */
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Neon effects */
+  .neon-border-green {
+    @apply border border-accent-green/50 shadow-neon-green;
+  }
+
+  .neon-border-red {
+    @apply border border-accent-red/50 shadow-neon-red;
+  }
+
+  /* Signal feed item */
+  .signal-item {
+    @apply flex items-start gap-3 p-3 rounded-lg bg-terminal-surface border border-terminal-border
+           hover:border-terminal-hover transition-all duration-200;
+  }
+
+  /* Heatmap cell */
+  .heatmap-cell {
+    @apply rounded-sm transition-all duration-200 hover:scale-105 cursor-pointer;
+  }
+}
+
+/* Animation keyframes */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+  }
+}
+
+/* Custom scrollbar for signal feed */
+.signal-feed-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #21262d #0d1117;
+}
+
+/* Chart container */
+.chart-container {
+  @apply w-full h-full min-h-[200px];
+}
+
+/* Number formatting */
+.number-positive {
+  @apply text-accent-green;
+}
+
+.number-negative {
+  @apply text-accent-red;
+}
+
+/* Loading skeleton */
+.skeleton {
+  @apply animate-pulse bg-terminal-border rounded;
+}
+
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.slide-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
