@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Build argument for API URL
-ARG VITE_API_URL=http://localhost:8000
+ARG VITE_API_URL=http://localhost:8020
 ENV VITE_API_URL=$VITE_API_URL
 
 # Build the app
@@ -30,10 +30,10 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port
-EXPOSE 80
+EXPOSE 8021
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+    CMD wget --quiet --tries=1 --spider http://localhost:8021/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]

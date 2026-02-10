@@ -148,7 +148,7 @@ import axios from 'axios'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 
 const router = useRouter()
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8020'
 
 const isDragging = ref(false)
 const selectedFile = ref(null)

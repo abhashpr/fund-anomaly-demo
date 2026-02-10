@@ -5,9 +5,15 @@
 
 import axios from 'axios'
 
-// API base URL
-const API_BASE = '/api'
-const WS_BASE = `ws://${window.location.hostname}:8000/ws`
+// API base URL - uses Vite env or defaults for development
+const API_URL = import.meta.env.VITE_API_URL || ''
+const API_BASE = API_URL ? `${API_URL}/api` : '/api'
+
+// WebSocket URL - derive from API_URL or use relative path
+const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+const WS_BASE = API_URL 
+  ? `${WS_PROTOCOL}//${new URL(API_URL).host}/ws`
+  : `${WS_PROTOCOL}//${window.location.host}/ws`
 
 // Axios instance with defaults
 const api = axios.create({

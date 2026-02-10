@@ -101,8 +101,8 @@ async def startup_event():
     except Exception as e:
         print(f"⚠️ Warning: Could not preload data: {e}")
     
-    print("🎯 API ready at http://localhost:8000")
-    print("📖 Docs available at http://localhost:8000/docs")
+    print("🎯 API ready at http://localhost:8020")
+    print("📖 Docs available at http://localhost:8020/docs")
 
 
 @app.on_event("shutdown")
@@ -115,6 +115,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
-        port=8000,
+        port=8020,
         reload=True
     )

@@ -26,5 +26,5 @@ docker-compose ps
 
 echo ""
 echo "✅ Deployment complete!"
-echo "📊 Dashboard available at: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
-echo "📖 API docs at: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):8000/docs"
+echo "📊 Dashboard available at: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):8021"
+echo "📖 API docs at: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):8020/docs"
